@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Vehículos - Taller Mecánico</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Registro de Nuevo Vehículo</h1>
+        <p>Completa los datos para registrar un nuevo servicio.</p>
+        
+        <form id="registro-form">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="nombre">Nombre del Cliente</label>
+                    <input type="text" id="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="apellido">Apellido del Cliente</label>
+                    <input type="text" id="apellido" required>
+                </div>
+                <div class="form-group">
+                    <label for="nit">NIT o Cédula</label>
+                    <input type="text" id="nit" required>
+                </div>
+                <div class="form-group">
+                    <label for="placa">Placa del Vehículo</label>
+                    <input type="text" id="placa" required>
+                </div>
+                <div class="form-group full-width">
+                     <label for="tipo-vehiculo">Tipo de Vehículo</label>
+                    <select id="tipo-vehiculo" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="auto">Auto</option>
+                        <option value="camion">Camión</option>
+                        <option value="moto">Motocicleta</option>
+                    </select>
+                </div>
+                <div class="form-group full-width">
+                    <label for="reparacion">Descripción de la Reparación</label>
+                    <textarea id="reparacion" rows="4" required></textarea>
+                </div>
+            </div>
+            <button type="submit" id="submit-btn">Registrar Vehículo</button>
+        </form>
+        <div id="message-container"></div>
+    </div>
+
+    <!-- SDK de Firebase (IMPORTANTE: deben estar antes de tu script.js) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <!-- Tu script para conectar con Firebase -->
+    <script src="script.js"></script>
+</body>
+</html>

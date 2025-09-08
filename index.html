@@ -3,59 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Vehículos - Taller Mecánico</title>
+    <title>LASS Servicio Técnico</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Registro de Nuevo Vehículo</h1>
-        <p>Completa los datos para registrar un nuevo servicio.</p>
-        
-        <form id="registro-form">
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="nombre">Nombre del Cliente</label>
-                    <input type="text" id="nombre" required>
-                </div>
-                <div class="form-group">
-                    <label for="apellido">Apellido del Cliente</label>
-                    <input type="text" id="apellido" required>
-                </div>
-                <div class="form-group">
-                    <label for="nit">NIT o Cédula</label>
-                    <input type="text" id="nit" required>
-                </div>
-                <div class="form-group">
-                    <label for="placa">Placa del Vehículo</label>
-                    <input type="text" id="placa" required>
-                </div>
-                <div class="form-group full-width">
-                     <label for="tipo-vehiculo">Tipo de Vehículo</label>
-                    <select id="tipo-vehiculo" required>
-                        <option value="" disabled selected>Selecciona una opción</option>
-                        <option value="auto">Auto</option>
-                        <option value="camion">Camión</option>
-                        <option value="moto">Motocicleta</option>
-                    </select>
-                </div>
-                <div class="form-group full-width">
-                    <label for="reparacion">Descripción de la Reparación</label>
-                    <textarea id="reparacion" rows="4" required></textarea>
-                </div>
+
+    <!-- Contenedor Principal de la App -->
+    <div id="app-container">
+
+        <!-- Encabezado (se muestra cuando el usuario está logueado) -->
+        <header id="app-header" class="hidden">
+            <div class="logo-header">
+                <img src="lgoo.jpg" alt="Logo LASS" height="40">
+                <span>LASS Servicio Técnico</span>
             </div>
-            <button type="submit" id="submit-btn">Registrar Vehículo</button>
-        </form>
-        <div id="message-container"></div>
+            <div class="user-info">
+                <span id="user-email-display"></span>
+                <button id="logout-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                      <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                    </svg>
+                    <span>Salir</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Vista de Autenticación (Login / Registro) -->
+        <div id="auth-view">
+            <div class="auth-box">
+                <img src="lgoo.jpg" alt="Logo LASS Servicio Técnico" class="auth-logo">
+                <div id="login-form-container">
+                    <h2>Bienvenido de Nuevo</h2>
+                    <p>Ingresa tus credenciales para acceder al sistema.</p>
+                    <form id="login-form">
+                        <input type="email" id="login-email" placeholder="Correo electrónico" required>
+                        <input type="password" id="login-password" placeholder="Contraseña" required>
+                        <button type="submit">Ingresar al Panel</button>
+                        <p class="auth-toggle">¿No tienes cuenta? <a href="#" id="show-register">Crea una ahora</a></p>
+                    </form>
+                </div>
+                <div id="register-form-container" class="hidden">
+                    <h2>Crea tu Cuenta</h2>
+                    <p>Únete a nuestra plataforma para gestionar tus servicios.</p>
+                    <form id="register-form">
+                        <input type="text" id="register-name" placeholder="Nombre completo" required>
+                        <input type="email" id="register-email" placeholder="Correo electrónico" required>
+                        <input type="password" id="register-password" placeholder="Contraseña (mín. 6 caracteres)" required>
+                        <select id="register-role" required>
+                            <option value="" disabled selected>Selecciona tu rol en el taller...</option>
+                            <option value="cliente">Soy Cliente</option>
+                            <option value="mecanico">Soy Mecánico</option>
+                            <option value="admin">Soy Administrador</option>
+                        </select>
+                        <button type="submit">Crear Mi Cuenta</button>
+                        <p class="auth-toggle">¿Ya tienes una cuenta? <a href="#" id="show-login">Inicia sesión</a></p>
+                    </form>
+                </div>
+                <p id="auth-error" class="error-message"></p>
+            </div>
+        </div>
+
+        <!-- Vistas de Roles (sin cambios en la estructura) -->
+        <main id="admin-view" class="view-panel hidden">
+            <h2>Gestión de Usuarios</h2>
+            <button id="add-user-btn">Agregar Mecánico/Cliente</button>
+            <div id="admin-user-list"></div>
+        </main>
+
+        <main id="mecanico-view" class="view-panel hidden">
+            <h2>Gestión de Vehículos</h2>
+            <button id="add-vehicle-btn">Registrar Nuevo Vehículo</button>
+            <div id="mecanico-vehicle-list"></div>
+        </main>
+
+        <main id="cliente-view" class="view-panel hidden">
+            <h2>Consulta de Vehículo</h2>
+            <form id="client-search-form">
+                <input type="text" id="client-placa-search" placeholder="Ingresa la placa de tu vehículo">
+                <button type="submit">Consultar</button>
+            </form>
+            <div id="client-vehicle-details"></div>
+        </main>
+
     </div>
 
-    <!-- SDK de Firebase (IMPORTANTE: deben estar antes de tu script.js) -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- Spinner y Modal (sin cambios en la estructura) -->
+    <div id="loader" class="hidden"></div>
+    <div id="modal-backdrop" class="hidden">
+        <div id="modal-content">
+            <h3 id="modal-title"></h3>
+            <div id="modal-body"></div>
+        </div>
+    </div>
 
-    <!-- Tu script para conectar con Firebase -->
+
+    <!-- SDKs de Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+    
     <script src="script.js"></script>
 </body>
 </html>
+
